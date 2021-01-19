@@ -1,6 +1,6 @@
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class Day07Test extends FunSpec {
+class Day07Test extends AnyFunSpec {
   describe("Amplifier"){
     it("example 1"){
       val program = Array(3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0L)

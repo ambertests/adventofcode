@@ -1,6 +1,6 @@
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class Day08Test extends FunSpec {
+class Day08Test extends AnyFunSpec {
 
   describe("Create Layers from Input"){
     it("works with sample"){

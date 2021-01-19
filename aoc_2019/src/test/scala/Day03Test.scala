@@ -1,6 +1,6 @@
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class Day03Test extends FunSpec {
+class Day03Test extends AnyFunSpec {
 
   describe("Distance Calculator"){
     it("handles first example"){

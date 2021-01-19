@@ -1,6 +1,6 @@
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class Day01Test extends FunSpec {
+class Day01Test extends AnyFunSpec {
 
   describe("Fuel amount from mass"){
     it("correctly calculates the fuel needed") {

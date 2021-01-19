@@ -1,6 +1,6 @@
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class Day04Test extends FunSpec {
+class Day04Test extends AnyFunSpec {
 
   describe("Password Validation Part 1"){
     /*

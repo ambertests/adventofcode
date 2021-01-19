@@ -1,6 +1,6 @@
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class Day06Test extends FunSpec {
+class Day06Test extends AnyFunSpec {
   val part1: List[String] = List("COM)B", "B)C", "C)D", "D)E", "E)F",
     "B)G", "G)H", "D)I", "E)J", "J)K", "K)L")
 

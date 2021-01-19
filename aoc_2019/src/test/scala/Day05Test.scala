@@ -1,6 +1,6 @@
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class Day05Test extends FunSpec {
+class Day05Test extends AnyFunSpec {
   describe("Input/Output example"){
     val program = Array(3,0,4,0,99L)
     it("returns the input value"){

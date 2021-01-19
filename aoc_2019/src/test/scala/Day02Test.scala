@@ -1,6 +1,6 @@
-import org.scalatest.FunSpec
+import org.scalatest.funspec.AnyFunSpec
 
-class Day02Test extends FunSpec {
+class Day02Test extends AnyFunSpec {
 
   describe("Array computer"){
     it("handles addition correctly"){
