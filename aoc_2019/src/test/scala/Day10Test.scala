@@ -14,7 +14,7 @@ class Day10Test extends AnyFunSpec {
               assert(asteroids.length == 10)
             }
             it("sets the size correctly"){
-              assert(size == 5)
+              assert(size == (5,5))
             }
         }
         describe("works with a medium example"){
@@ -33,9 +33,24 @@ class Day10Test extends AnyFunSpec {
               assert(asteroids.length == 40)
             }
             it("sets the size correctly"){
-              assert(size == 10)
+              assert(size == (10,10))
             }
 
+        }
+        describe("works with rectangle"){
+            val field = List(
+                ".#....#####...#..",
+                "##...##.#####..##",
+                "##...#...#.#####.",
+                "..#.....X...###..",
+                "..#.#.....#....##")
+            val (size, asteroids) = Day10.getAsteroids(field)
+            it("gets the correct number of asteroids"){
+              assert(asteroids.length == 37)
+            }
+            it("sets the size correctly"){
+              assert(size == (17,5))
+            }
         }
     }
 
