@@ -7,6 +7,7 @@ class IntcodeComputer(val program:Array[Long],
                       val inputs:mutable.Queue[Long]) {
 
   val output = new StringBuilder
+  val outList = new mutable.ListBuffer[Long]
   var complete = false
   var currentPointer = 0
   var relativeBase = 0
@@ -28,13 +29,14 @@ class IntcodeComputer(val program:Array[Long],
     result.toLongOption.getOrElse(lastOutput.toLongOption.getOrElse(0))
   }
   @tailrec
-  final def compute(pointer: Int): String = {
+  final def compute(pointer: Int, outputAsArray:Boolean=false): String = {
 
     val opCode:Int = program(pointer).intValue
     val cmd:Int = opCode % 100
     if(cmd == 99) {
       complete = true
-      output.toString
+      if(outputAsArray) outList.toList.mkString(",")
+      else output.toString
     }
     else {
       val pType1 = (opCode.intValue / 100) % 10
@@ -80,7 +82,8 @@ class IntcodeComputer(val program:Array[Long],
           newPointer += 2
         }
         case 4 => {
-          output.append(param1)
+          if(outputAsArray) outList += param1
+          else output.append(param1)
           newPointer += 2
         }
         case 5 => {
@@ -114,16 +117,17 @@ class IntcodeComputer(val program:Array[Long],
       }
       if(pause) {
         currentPointer = pointer //we want to be able to pick up where we left off
-        output.toString
+        if(outputAsArray) outList.toList.mkString(",")
+        else output.toString
       }
-      else compute(newPointer)
+      else compute(newPointer, outputAsArray)
     }
   }
 }
 
 object IntcodeComputer{
   def apply(program:Array[Long], phase:Long = -1): IntcodeComputer = {
-    val arr:Array[Long] = new Array[Long](5000)
+    val arr:Array[Long] = new Array[Long](program.length + 5000)
     program.copyToArray(arr)
     new IntcodeComputer(arr, {if(phase >= 0)mutable.Queue(phase) else mutable.Queue()})
   }
