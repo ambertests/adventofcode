@@ -64,14 +64,14 @@ class Day10Test extends AnyFunSpec {
         val a = Coordinate(2,2)
         it("works for top left"){
             val seen = Day10.scanQuadrant(asteroids, a, size, Day10.TOP_LEFT)
-            assert(seen.size == 2)
+            assert(seen.size == 1)
             assert(seen.contains(Coordinate(1,0)))
-            assert(seen.contains(Coordinate(1,2)))
-            assert(!seen.contains(Coordinate(0,2)))
         }
         it("works for bottom left"){
             val seen = Day10.scanQuadrant(asteroids, a, size, Day10.BOTTOM_LEFT)
-            assert(seen.size == 0)
+            assert(seen.size == 1)
+            assert(seen.contains(Coordinate(1,2)))
+            assert(!seen.contains(Coordinate(0,2)))
         }
         it("works for top right"){
             val seen = Day10.scanQuadrant(asteroids, a, size, Day10.TOP_RIGHT)
@@ -91,7 +91,7 @@ class Day10Test extends AnyFunSpec {
             val tl = Coordinate(4,0)
             it("top left qudrant ok"){
                 val seen = Day10.scanQuadrant(asteroids, tl, size, Day10.TOP_LEFT)
-                assert(seen.size == 1)
+                assert(seen.size == 0)
             }
             it("top right qudrant ok"){
                 val seen = Day10.scanQuadrant(asteroids, tl, size, Day10.TOP_RIGHT)
@@ -103,7 +103,7 @@ class Day10Test extends AnyFunSpec {
             }
             it("bottom left qudrant ok"){
                 val seen = Day10.scanQuadrant(asteroids, tl, size, Day10.BOTTOM_LEFT)
-                assert(seen.size == 5)
+                assert(seen.size == 6)
             }
         }
     }
@@ -247,6 +247,128 @@ class Day10Test extends AnyFunSpec {
             val (loc, seen) = Day10.findMonitorLocation(field)
             assert(loc == Coordinate(11,13))
             assert(seen == 210)
+        }
+    }
+    describe("Ordered asteroid list"){
+        describe("Small example"){
+            it("works in the top right quadrant"){
+                val field = List(
+                    ".#....###13...#..",
+                    "##...##.02#56..8#",
+                    "##...#...4.79012.",
+                    "..#.....X...3##..",
+                    "..#.#.....#....##")
+                val (size, asteroids) = Day10.getAsteroids(field)
+                val monitor = Coordinate(8,3)
+                val seen = Day10.scanQuadrant(asteroids, monitor, size, Day10.TOP_RIGHT).toList
+                val ordered = Day10.orderByArcTan(seen, monitor)
+                assert(ordered(0) == Coordinate(8,1))
+                assert(ordered(1) == Coordinate(9,0))
+                assert(ordered(2) == Coordinate(9,1))
+                assert(ordered(3) == Coordinate(10,0))
+                assert(ordered(4) == Coordinate(9,2))
+                assert(ordered(5) == Coordinate(11,1))
+                assert(ordered(6) == Coordinate(12,1))
+                assert(ordered(7) == Coordinate(11,2))
+                assert(ordered(8) == Coordinate(15,1))
+                assert(ordered(9) == Coordinate(12,2))
+                assert(ordered(10) == Coordinate(13,2))
+                assert(ordered(11) == Coordinate(14,2))
+                assert(ordered(12) == Coordinate(15,2))
+                assert(ordered(13) == Coordinate(12,3))
+            }
+            it("works in the bottom right quadrant"){
+                val field = List(
+                    ".#....###.....#..",
+                    "##...##...#.....#",
+                    "##...#......1234.",
+                    "..#.....X...5##..",
+                    "..#.#.....2....10")
+                val (size, asteroids) = Day10.getAsteroids(field)
+                val monitor = Coordinate(8,3)
+                val seen = Day10.scanQuadrant(asteroids, monitor, size, Day10.BOTTOM_RIGHT).toList
+                val ordered = Day10.orderByArcTan(seen, monitor)
+                assert(ordered(0) == Coordinate(16,4))
+                assert(ordered(1) == Coordinate(15,4))
+                assert(ordered(2) == Coordinate(10,4))
+            }
+            it("works in the bottom left quadrant"){
+                val field = List(
+                    ".#....###.....#..",
+                    "##...##...#.....#",
+                    "##...#...........",
+                    "..2.....X....##..",
+                    "..1.0............")
+                val (size, asteroids) = Day10.getAsteroids(field)
+                val monitor = Coordinate(8,3)
+                val seen = Day10.scanQuadrant(asteroids, monitor, size, Day10.BOTTOM_LEFT).toList
+                val ordered = Day10.orderByArcTan(seen, monitor)
+                assert(ordered(0) == Coordinate(4,4))
+                assert(ordered(1) == Coordinate(2,4))
+                assert(ordered(2) == Coordinate(2,3))
+            }
+            it("works in the top left quadrant"){
+                val field = List(
+                    ".5....89#.....#..",
+                    "23...67...#.....#",
+                    "01...4...........",
+                    "........X....##..",
+                    ".................")
+                val (size, asteroids) = Day10.getAsteroids(field)
+                val monitor = Coordinate(8,3)
+                val seen = Day10.scanQuadrant(asteroids, monitor, size, Day10.TOP_LEFT).toList
+                val ordered = Day10.orderByArcTan(seen, monitor)
+                assert(ordered(0) == Coordinate(0,2))
+                assert(ordered(1) == Coordinate(1,2))
+                assert(ordered(2) == Coordinate(0,1))
+                assert(ordered(3) == Coordinate(1,1))
+                assert(ordered(4) == Coordinate(5,2))
+                assert(ordered(5) == Coordinate(1,0))
+                assert(ordered(6) == Coordinate(5,1))
+                assert(ordered(7) == Coordinate(6,1))
+                assert(ordered(8) == Coordinate(6,0))
+                assert(ordered(9) == Coordinate(7,0))
+            }
+        }
+        describe("Large Example"){
+            val field = List(   
+                ".#..##.###...#######",
+                "##.############..##.",
+                ".#.######.########.#",
+                ".###.#######.####.#.",
+                "#####.##.#.##.###.##",
+                "..#####..#.#########",
+                "####################",
+                "#.####....###.#.#.##",
+                "##.#################",
+                "#####.##.###..####..",
+                "..######..##.#######",
+                "####.##.####...##..#",
+                ".#####..#.######.###",
+                "##...#.####X#####...",
+                "#.##########.#######",
+                ".####.#.###.###.#.##",
+                "....##.##.###..#####",
+                ".#.#.###########.###",
+                "#.#.#.#####.####.###",
+                "###.##.####.##.#..##")
+            
+            val monitor = Coordinate(11,13)
+            val (size, asteroids) = Day10.getAsteroids(field)
+            it("vaporize works correctly"){
+                val vaporize = Day10.getVaporizeOrder(asteroids, monitor, size)
+                assert(vaporize(0) == Coordinate(11,12))
+                assert(vaporize(1) == Coordinate(12,1))
+                assert(vaporize(2) == Coordinate(12,2))
+                assert(vaporize(9) == Coordinate(12,8))
+                assert(vaporize(19) == Coordinate(16,0))
+                assert(vaporize(49) == Coordinate(16,9))
+                assert(vaporize(99) == Coordinate(10,16))
+                assert(vaporize(198) == Coordinate(9,6))
+                assert(vaporize(199) == Coordinate(8,2))
+                assert(vaporize(200) == Coordinate(10,9))
+            }
+
         }
     }
 }

@@ -2,6 +2,7 @@ import scala.annotation.tailrec
 import graph.Coordinate
 import scala.collection.mutable.ListBuffer
 import scala.collection.mutable.HashMap
+import scala.math.atan2
 
 object Day10 extends Day {
 
@@ -40,14 +41,14 @@ object Day10 extends Day {
           case BOTTOM_LEFT | BOTTOM_RIGHT => (a.y + 1 until size._2)
         }
       }
-    if (quadrant == TOP_LEFT || quadrant == TOP_RIGHT){
-      los += {
-        (for(x <- x_range) yield (x, a.y)).toList
-      }
-    }
     if (quadrant == TOP_RIGHT || quadrant == BOTTOM_RIGHT){
       los += {
         (for(y <- y_range) yield (a.x, y)).toList
+      }
+    }
+    if (quadrant == BOTTOM_LEFT || quadrant == TOP_RIGHT){
+      los += {
+        (for(x <- x_range) yield (x, a.y)).toList
       }
     }
     (1 to x_range.size).foreach(x_step => {
@@ -107,8 +108,27 @@ object Day10 extends Day {
       (best, max_seen)
   }
 
+  def orderByArcTan(visible:List[Coordinate], monitor:Coordinate):List[Coordinate]={
+    val ordered = ListBuffer[(Coordinate, Double)]()
+    visible.foreach(v => {
+      val atan = atan2(v.y - monitor.y, v.x - monitor.x)
+      val t = (v, atan)
+      ordered += t
+    })
+    ordered.toList.sortWith(_._2 < _._2).unzip._1
+  }
+
+  def getVaporizeOrder(asteroids:List[Coordinate], a:Coordinate, size:(Int,Int)):List[Coordinate]={
+    (1 to 4).map(q => {
+      orderByArcTan(scanQuadrant(asteroids, a, size, q).toList, a)
+    }).flatten.toList
+  }
+
   val (monitor, count) = findMonitorLocation(getInputStrings)
   printPartOne(count) //286
+  val (size, asteroids) = getAsteroids(getInputStrings)
+  val cc = getVaporizeOrder(asteroids, monitor, size)(199)
+  printPartTwo((cc.x * 100) + cc.y) //504
 
 }
 
