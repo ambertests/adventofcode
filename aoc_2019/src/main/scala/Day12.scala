@@ -37,43 +37,40 @@ object Day12 extends Day {
   }
 
   @tailrec
-  def findRepeat(moons:List[Moon], turn:BigInt=0,
-                hist:List[List[Moon]]=List(),
-                cycles:Array[BigInt]=Array(0,0,0,0,0,0)):BigInt={
+  def findRepeat(moons:List[Moon], start:List[Moon], turn:BigInt=1,
+                cycles:Array[BigInt]=Array(0,0,0)):BigInt={
     if (!cycles.contains(0)){
-        var l:BigInt = 1
-        cycles.toSet[BigInt].foreach(i => {l = lcm(l, i)})
-        l
+        lcm(cycles(0), lcm(cycles(1), cycles(2)))
     } else{
         val next = tick(moons)
-        (0 until 6).foreach(i => {
+        (0 until 3).foreach(i => {
             if (cycles(i) == 0){
+                // the position and the velocity need to match as a set
                 val to_match = {i match 
                     {
-                        case 0 => next.map(m => m.x)
-                        case 1 => next.map(m => m.y)
-                        case 2 => next.map(m => m.z)
-                        case 3 => next.map(m => m.vx)
-                        case 4 => next.map(m => m.vy)
-                        case 5 => next.map(m => m.vz)
+                        case 0 => next.map(m => (m.x, m.vx))
+                        case 1 => next.map(m => (m.y, m.vy))
+                        case 2 => next.map(m => (m.z, m.vz))
                     }
                 } 
 
-                val check = hist.map(ml => ml.map(m => m.props()(i)))
+                val check = start.map(m => m.props()(i))
             
-                if (check.contains(to_match)) {
+                if (check == to_match) {
                     println(s"$turn: matched $i")
                     cycles(i) = turn
                 }
             }
         })
-        findRepeat(next, turn + 1, moons :: hist, cycles)
+        findRepeat(next, start, turn + 1, cycles)
 
     }  
     
       
   }
-  printPartOne(totalEnergy(update(init(getInputStrings), 1000)))
+  val moons = init(getInputStrings)
+  printPartOne(totalEnergy(update(moons, 1000)))
+  printPartTwo(findRepeat(moons, moons))
 
   
 }
@@ -90,7 +87,7 @@ case class Moon(x:Int, y:Int, z:Int, vx:Int=0, vy:Int=0, vz:Int=0){
     def potentialEnergy():Int = abs(x) + abs(y) + abs(z)
     def kineticEngergy():Int = abs(vx) + abs(vy) + abs(vz)
     def totalEngergy():Int = potentialEnergy() * kineticEngergy()
-    def props():Array[Int] = Array(x, y, z, vx, vy, vz)
+    def props():Array[(Int,Int)] = Array((x, vx), (y, vy), (z, vz))
 }
 
 object Moon{

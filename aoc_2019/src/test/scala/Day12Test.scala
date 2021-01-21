@@ -143,7 +143,7 @@ class Day12Test extends AnyFunSpec {
                 "<x=3, y=5, z=-1>")
             
             val moons = Day12.init(input)
-            val r = Day12.findRepeat(moons)
+            val r = Day12.findRepeat(moons, moons)
             assert(r == 2772)
         }
         it("slow example"){
@@ -153,7 +153,7 @@ class Day12Test extends AnyFunSpec {
                 "<x=2, y=-7, z=3>",
                 "<x=9, y=-8, z=-3>")
             val moons = Day12.init(input)
-            val r = Day12.findRepeat(moons)
+            val r = Day12.findRepeat(moons, moons)
             assert(r == 4686774924L)
         }
     }
