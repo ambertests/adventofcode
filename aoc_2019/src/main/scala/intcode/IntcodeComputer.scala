@@ -11,6 +11,8 @@ class IntcodeComputer(val program:Array[Long],
   var currentPointer = 0
   var relativeBase = 0
 
+  def input(i:Long) = inputs.enqueue(i)
+  
   def getParamValue(pType:Int, pPosition:Int): Long = {
     val raw = program(pPosition)
     if(pType == 0) program(raw.intValue)
