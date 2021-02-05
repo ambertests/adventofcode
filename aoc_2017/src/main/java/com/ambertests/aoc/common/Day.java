@@ -2,9 +2,13 @@ package com.ambertests.aoc.common;
 
 import java.io.IOException;
 import java.io.File;
+import java.util.Arrays;
+
 import static org.apache.commons.io.FileUtils.readFileToString;
 
 public abstract class Day {
+    private static final String DEFAULT_DELIMITER = System.lineSeparator();
+
     protected Integer dayNum = 0;
     protected Object solution1 = "";
     protected Object solution2 = "";
@@ -24,6 +28,14 @@ public abstract class Day {
     protected String day() {
         return getResourceAsString(String.format("day%02d.txt", dayNum));
     }
-    public abstract void solvePart1();
-    public abstract void solvePart2();
+
+
+    protected String[] dayStrings() {
+        return dayStrings(DEFAULT_DELIMITER);
+    }
+
+    protected String[] dayStrings(String delimiter) {
+        return Arrays.stream(day().split(delimiter)).toArray(String[]::new);
+    }
+    public abstract void solve();
 }

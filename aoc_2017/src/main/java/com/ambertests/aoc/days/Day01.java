@@ -10,38 +10,30 @@ public class Day01 extends Day {
     }
 
     @Override
-    public void solvePart1() {
-        int sum = 0;
-        char[] chars = input.toCharArray();
-        for (int i = 0; i < chars.length; i++) {
-            char c = chars[i];
-            char next = i == chars.length - 1 ? chars[0]:chars[i+1];
-            if(c == next){
-                sum += (int)c - 48; //48 is the ascii value of 0
-            }
-        }
-        this.solution1 = sum;
-
-    }
-
-    @Override
-    public void solvePart2() {
-        int sum = 0;
+    public void solve() {
+        int sum1 = 0;
+        int sum2 = 0;
         char[] chars = input.toCharArray();
         int half = chars.length/2;
         for (int i = 0; i < chars.length; i++) {
+            char c = chars[i];
+            int cInt = (int)c - 48; //48 is the ascii value of 0
+            char next = i == chars.length - 1 ? chars[0]:chars[i+1];
+            if(c == next){
+                sum1 += cInt;
+            }
             int j = i + half < chars.length ? i+half : (i+half)-chars.length;
-            if(chars[i] == chars[j]){
-                sum += (int)chars[i] - 48;
+            if(c == chars[j]){
+                sum2 += cInt;
             }
         }
-        this.solution2 = sum;
+        this.solution1 = sum1;
+        this.solution2 = sum2;
     }
 
     public static void main(String[] args) {
         Day01 day1 = new Day01();
-        day1.solvePart1();
-        day1.solvePart2();
+        day1.solve();
         day1.printSolutions();
     }
 }
