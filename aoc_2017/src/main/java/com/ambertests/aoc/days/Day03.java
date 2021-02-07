@@ -8,7 +8,7 @@ public class Day03 extends Day {
         this.dayNum = 3;
     }
 
-    private Coordinate getCoordinate(int squares, int side, int val){
+    private Coordinate getCoordinate(int square, int side, int val){
         //The largest value in the square is in the
         //bottom right corner. Compute the other corners
         //and work back around to the target number.
@@ -19,13 +19,13 @@ public class Day03 extends Day {
         20   7   8   9  10
         21  22  23---> ...
         */
-        int x = squares;
-        int y = -(squares);
+        int x = square;
+        int y = -(square);
         int pos = side*side;
         int bl = pos - (side-1);
         int tl = bl - (side-1);
         int tr = tl - (side-1);
-        while(pos != val){
+        while(pos > val){
             pos -= 1;
             if (pos >= bl){
                 x -= 1;
@@ -45,32 +45,32 @@ public class Day03 extends Day {
 
     public int getDistance(int num){
         int distance = 0;
-        int squares = 0;
+        int square = 0;
         int a = 1;
         //first figure out how many squares there are
         while((a*a) < num){
             a += 2;
-            squares += 1;
+            square += 1;
         }
  
-        Coordinate c = getCoordinate(squares, a, num);
+        Coordinate c = getCoordinate(square, a, num);
         distance = (Math.abs(c.x) + Math.abs(c.y));
 
         return distance;
     }
-    
+
     public int createGrid(int target){
         int val = 1;
         HashMap<Coordinate, Integer> grid = new HashMap<Coordinate, Integer>();
         grid.put(new Coordinate(0,0), val);
-        int squares = 0;
+        int square = 0;
         int side = 1;
         while(val <= target){
             if(grid.size() == side*side){
-                squares += 1;
+                square += 1;
                 side += 2;
             }
-            Coordinate c = getCoordinate(squares, side, grid.size() + 1);
+            Coordinate c = getCoordinate(square, side, grid.size() + 1);
 
             val = grid.getOrDefault(new Coordinate(c.x+1, c.y+1), 0) +
             grid.getOrDefault(new Coordinate(c.x+1, c.y), 0) +
