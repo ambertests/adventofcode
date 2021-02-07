@@ -37,5 +37,9 @@ public abstract class Day {
     protected String[] dayStrings(String delimiter) {
         return Arrays.stream(day().split(delimiter)).toArray(String[]::new);
     }
+
+    protected int[] dayInts(){
+        return Arrays.stream(dayStrings()).mapToInt(Integer::parseInt).toArray();
+    }
     public abstract void solve();
 }
