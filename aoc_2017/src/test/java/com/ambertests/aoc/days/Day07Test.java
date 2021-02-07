@@ -48,5 +48,14 @@ public class Day07Test {
         String bottom = day.getBottom();
         assertEquals("tknk", bottom);
     }
+
+    @Test
+    public void testFindBadWeight(){
+        Day07 day = new Day07();
+        day.parseInput(input);
+        int newWeight = day.findBadWeight();
+        assertEquals(60, newWeight);
+
+    }
     
 }

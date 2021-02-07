@@ -1,13 +1,7 @@
 package com.ambertests.aoc.days;
 
 import com.ambertests.aoc.common.Day;
-import com.google.common.primitives.Ints;
-
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Arrays;
-import java.util.stream.IntStream;
+import java.util.*;
 
 public class Day07 extends Day {
     HashMap<String, Integer> nameToWeight;
@@ -69,24 +63,59 @@ public class Day07 extends Day {
         return parents;
     }
 
-    int findBadWeight(){
-        int diff = 0;
-        HashSet<String> parents = getParents(getLeaves());
-        HashMap<String, Integer> totalChildWeights = new HashMap<String, Integer>();
-        while(diff == 0){
-            for(String p:parents){
-                
-                
+    int getChildWeight(String parent, int weight){
+        if(parentToChildren.containsKey(parent)){
+            for(String child:parentToChildren.get(parent)){
+                weight += getChildWeight(child, nameToWeight.get(child));
             }
         }
-        return diff;
+        return weight;
     }
 
+    int findBadWeight(){
+        int newWeight = 0;
+        HashSet<String> parents = getParents(getLeaves());
+        while(newWeight == 0){
+            for(String p:parents){
+                HashMap<String, Integer> childWeights = new HashMap<String, Integer>();
+                for(String c: parentToChildren.get(p)){
+                    childWeights.put(c, getChildWeight(c, nameToWeight.get(c)));
+                }
+                HashMap<Integer, Integer> weightCounts = new HashMap<Integer, Integer>();
+                for(Integer w:childWeights.values()){
+                    weightCounts.put(w, weightCounts.getOrDefault(w, 0) + 1);
+                }
+                if(weightCounts.size() == 2){
+                    int target = 0;
+                    int bad = 0;
+                    for(Integer w:weightCounts.keySet()){
+                        if(weightCounts.get(w) == 1){
+                            bad = w;
+                        }else{
+                            target = w;
+                        }
+                    }
+                    String badName = "";
+                    for(String c:childWeights.keySet()){
+                        if(childWeights.get(c) == bad){
+                            badName = c;
+                            break;
+                        }
+                    }
+                    newWeight = nameToWeight.get(badName) + (target - bad);
+                }
+                
+            }
+            parents = getParents(new ArrayList<String>(parents));
+        }
+        return newWeight;
+    }
 
     @Override
     public void solve() {
         parseInput(dayStrings());
         this.solution1 = getBottom();
+        this.solution2 = findBadWeight();
     }
 
     public static void main(String[] args) {
