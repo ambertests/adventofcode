@@ -2,6 +2,8 @@ package graph
 
 case class Coordinate(x: Int=0, y: Int=0, o:Char='N'){
 
+  def setDirection(d:Char) = Coordinate(x, y, d)
+
   def moveRight(n:Int) = Coordinate(x + n, y, o)
   def moveLeft(n:Int) = Coordinate(x - n, y, o)
   def moveUp(n:Int) = Coordinate(x, y - n, o)
