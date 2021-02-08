@@ -113,7 +113,7 @@ public class Day07 extends Day {
 
     @Override
     public void solve() {
-        parseInput(dayStrings());
+        parseInput(getInputStringArray());
         this.solution1 = getBottom();
         this.solution2 = findBadWeight();
     }

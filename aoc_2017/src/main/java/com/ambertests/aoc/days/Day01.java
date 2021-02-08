@@ -6,7 +6,7 @@ public class Day01 extends Day {
     String input;
     public Day01(){
         this.dayNum = 1;
-        input = this.day();
+        input = this.getInputString();
     }
 
     @Override

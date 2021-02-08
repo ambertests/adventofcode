@@ -60,7 +60,7 @@ public class Day09 extends Day {
 
     @Override
     public void solve() {
-        this.solution1 = scoreString(cleanString(day()));
+        this.solution1 = scoreString(cleanString(getInputString()));
         this.solution2 = garbageCount;
     }
 

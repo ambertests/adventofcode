@@ -25,8 +25,8 @@ public class Day05 extends Day {
 
     @Override
     public void solve() {
-        this.solution1 = escapeArray(dayInts(), 1); //358309
-        this.solution2 = escapeArray(dayInts(), 2); //28178177
+        this.solution1 = escapeArray(getInputInts(), 1); //358309
+        this.solution2 = escapeArray(getInputInts(), 2); //28178177
     }
 
     public static void main(String[] args) {

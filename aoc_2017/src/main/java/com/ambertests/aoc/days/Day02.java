@@ -7,7 +7,7 @@ public class Day02 extends Day {
     String[] input;
     public Day02(){
         this.dayNum = 2;
-        input = this.dayStrings();
+        input = this.getInputStringArray();
     }
     @Override
     public void solve() {

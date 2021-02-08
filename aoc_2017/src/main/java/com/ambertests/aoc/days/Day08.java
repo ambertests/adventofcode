@@ -73,7 +73,7 @@ public class Day08 extends Day {
     @Override
     public void solve() {
         int totalMax = 0;
-        for(String s:dayStrings()){
+        for(String s:getInputStringArray()){
             parseInstruction(s);
             int m = Collections.max(registers.values());
             if(m > totalMax){

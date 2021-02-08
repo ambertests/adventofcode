@@ -25,21 +25,21 @@ public abstract class Day {
         }
     }
 
-    protected String day() {
+    protected String getInputString() {
         return getResourceAsString(String.format("day%02d.txt", dayNum));
     }
 
 
-    protected String[] dayStrings() {
-        return dayStrings(DEFAULT_DELIMITER);
+    protected String[] getInputStringArray() {
+        return getInputStringArray(DEFAULT_DELIMITER);
     }
 
-    protected String[] dayStrings(String delimiter) {
-        return Arrays.stream(day().split(delimiter)).toArray(String[]::new);
+    protected String[] getInputStringArray(String delimiter) {
+        return Arrays.stream(getInputString().split(delimiter)).toArray(String[]::new);
     }
 
-    protected int[] dayInts(){
-        return Arrays.stream(dayStrings()).mapToInt(Integer::parseInt).toArray();
+    protected int[] getInputInts(){
+        return Arrays.stream(getInputStringArray()).mapToInt(Integer::parseInt).toArray();
     }
     public abstract void solve();
 }

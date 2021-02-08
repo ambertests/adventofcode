@@ -12,7 +12,7 @@ public class Day04 extends Day {
     String[] input;
     public Day04(){
         this.dayNum = 4;
-        this.input = dayStrings();
+        this.input = getInputStringArray();
     }
 
     @Override

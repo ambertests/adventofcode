@@ -42,7 +42,7 @@ public class Day06 extends Day {
 
     @Override
     public void solve() {
-        int[] nums = Arrays.stream(day().split("\t")).mapToInt(Integer::parseInt).toArray();
+        int[] nums = Arrays.stream(getInputString().split("\t")).mapToInt(Integer::parseInt).toArray();
         this.solution1 = findLoop(nums);
         this.solution2 = findLoop(nums);
     }
