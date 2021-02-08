@@ -1,27 +1,28 @@
 package com.ambertests.aoc.days;
 
 import com.ambertests.aoc.common.Day;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Day06 extends Day {
-    public Day06(){
+    public Day06() {
         this.dayNum = 6;
     }
 
-    void redistribute(int[] arr){
+    void redistribute(int[] arr) {
         int amt = 0;
         int index = 0;
-        for(int i = 0; i < arr.length; i++){
-            if(arr[i] > amt){
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > amt) {
                 amt = arr[i];
                 index = i;
             }
         }
         arr[index] = 0;
-        while(amt > 0){
+        while (amt > 0) {
             index += 1;
-            if(index == arr.length){
+            if (index == arr.length) {
                 index = 0;
             }
             arr[index] += 1;
@@ -29,10 +30,10 @@ public class Day06 extends Day {
         }
     }
 
-    int findLoop(int[] arr){
-        ArrayList<String> arrs = new ArrayList<String>();
+    int findLoop(int[] arr) {
+        ArrayList<String> arrs = new ArrayList<>();
         int loops = 0;
-        while(!arrs.contains(Arrays.toString(arr))){
+        while (!arrs.contains(Arrays.toString(arr))) {
             arrs.add(Arrays.toString(arr));
             redistribute(arr);
             loops += 1;

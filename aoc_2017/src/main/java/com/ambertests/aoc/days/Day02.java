@@ -1,35 +1,38 @@
 package com.ambertests.aoc.days;
 
 import com.ambertests.aoc.common.Day;
+
 import java.util.Arrays;
 
 public class Day02 extends Day {
     String[] input;
-    public Day02(){
+
+    public Day02() {
         this.dayNum = 2;
         input = this.getInputStringArray();
     }
+
     @Override
     public void solve() {
         int sum1 = 0;
         int sum2 = 0;
-        for (String s:input) {
+        for (String s : input) {
             int min = Integer.MAX_VALUE;
             int max = 0;
             int[] arr = Arrays.stream(s.split("\t")).mapToInt(Integer::parseInt).toArray();
-            for(int i:arr){
-                if(i < min){
+            for (int i : arr) {
+                if (i < min) {
                     min = i;
                 }
-                if(i > max){
+                if (i > max) {
                     max = i;
                 }
-                for(int j:arr){
-                    if(i == j){
+                for (int j : arr) {
+                    if (i == j) {
                         continue;
                     }
-                    if(i%j == 0){
-                        sum2 += (i/j);
+                    if (i % j == 0) {
+                        sum2 += (i / j);
                     }
                 }
             }

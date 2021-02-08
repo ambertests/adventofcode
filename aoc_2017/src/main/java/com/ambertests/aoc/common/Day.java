@@ -1,8 +1,10 @@
 package com.ambertests.aoc.common;
 
-import java.io.IOException;
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
+import java.util.Objects;
 
 import static org.apache.commons.io.FileUtils.readFileToString;
 
@@ -12,14 +14,16 @@ public abstract class Day {
     protected Integer dayNum = 0;
     protected Object solution1 = "";
     protected Object solution2 = "";
-    public void printSolutions(){
-        System.out.println(String.format("Solution %d.1: %s", dayNum, solution1.toString()));
-        System.out.println(String.format("Solution %d.2: %s", dayNum, solution2.toString()));
+
+    public void printSolutions() {
+        System.out.printf("Solution %d.1: %s%n", dayNum, solution1.toString());
+        System.out.printf("Solution %d.2: %s%n", dayNum, solution2.toString());
     }
 
     protected String getResourceAsString(String resource) {
         try {
-            return readFileToString(new File(Day.class.getClassLoader().getResource(resource).getFile()));
+            URL resUrl = Objects.requireNonNull(Day.class.getClassLoader().getResource(resource));
+            return readFileToString(new File(resUrl.getFile()));
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
@@ -31,15 +35,12 @@ public abstract class Day {
 
 
     protected String[] getInputStringArray() {
-        return getInputStringArray(DEFAULT_DELIMITER);
+        return Arrays.stream(getInputString().split(DEFAULT_DELIMITER)).toArray(String[]::new);
     }
 
-    protected String[] getInputStringArray(String delimiter) {
-        return Arrays.stream(getInputString().split(delimiter)).toArray(String[]::new);
-    }
-
-    protected int[] getInputInts(){
+    protected int[] getInputInts() {
         return Arrays.stream(getInputStringArray()).mapToInt(Integer::parseInt).toArray();
     }
+
     public abstract void solve();
 }

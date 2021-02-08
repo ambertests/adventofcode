@@ -1,96 +1,100 @@
 package com.ambertests.aoc.days;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class Day08Test {
     @Test
-    public void testGetMaxRegister(){
+    public void testGetMaxRegister() {
         String[] input = new String[]{
-            "b inc 5 if a > 1",
-            "a inc 1 if b < 5",
-            "c dec -10 if a >= 1",
-            "c inc -20 if c == 10"
+                "b inc 5 if a > 1",
+                "a inc 1 if b < 5",
+                "c dec -10 if a >= 1",
+                "c inc -20 if c == 10"
         };
         Day08 day = new Day08();
         assertEquals(1, day.getMaxRegister(input));
     }
 
     @Test
-    public void testParseModIncPos(){
+    public void testParseModIncPos() {
         Day08 day = new Day08();
         day.registers.put("a", 0);
         String mod = "a inc 1";
         day.parseMod(mod);
         assertEquals(1, day.registers.get("a").intValue());
     }
+
     @Test
-    public void testParseModIncNeg(){
+    public void testParseModIncNeg() {
         Day08 day = new Day08();
         day.registers.put("a", 0);
         String mod = "a inc -1";
         day.parseMod(mod);
         assertEquals(-1, day.registers.get("a").intValue());
     }
+
     @Test
-    public void testParseModDecPos(){
+    public void testParseModDecPos() {
         Day08 day = new Day08();
         day.registers.put("a", 0);
         String mod = "a dec 1";
         day.parseMod(mod);
         assertEquals(-1, day.registers.get("a").intValue());
     }
+
     @Test
-    public void testParseModDecNeg(){
+    public void testParseModDecNeg() {
         Day08 day = new Day08();
         day.registers.put("a", 0);
         String mod = "a dec -1";
         day.parseMod(mod);
         assertEquals(1, day.registers.get("a").intValue());
     }
-    
+
     @Test
-    public void testParseConditionGTFalse(){
+    public void testParseConditionGTFalse() {
         Day08 day = new Day08();
         day.registers.put("a", 0);
         String cond = "a > 0";
         assertFalse(day.parseCondition(cond));
     }
-    
+
     @Test
-    public void testParseConditionGTTrue(){
+    public void testParseConditionGTTrue() {
         Day08 day = new Day08();
         day.registers.put("a", 0);
         String cond = "a > -1";
         assertTrue(day.parseCondition(cond));
     }
-    
+
     @Test
-    public void testParseConditionLTFalse(){
+    public void testParseConditionLTFalse() {
         Day08 day = new Day08();
         String cond = "a < 1";
         day.registers.put("a", 10);
         assertFalse(day.parseCondition(cond));
     }
-    
+
     @Test
-    public void testParseConditionLTTrue(){
+    public void testParseConditionLTTrue() {
         Day08 day = new Day08();
         String cond = "a < 1";
         day.registers.put("a", -10);
         assertTrue(day.parseCondition(cond));
     }
-    
+
     @Test
-    public void testParseConditionGTEFalse(){
+    public void testParseConditionGTEFalse() {
         Day08 day = new Day08();
         String cond = "a >= 1";
         day.registers.put("a", -10);
         assertFalse(day.parseCondition(cond));
     }
-    
+
     @Test
-    public void testParseConditionGTETrueE(){
+    public void testParseConditionGTETrueE() {
         Day08 day = new Day08();
         String cond = "a >= 1";
         day.registers.put("a", 1);
@@ -98,23 +102,23 @@ public class Day08Test {
     }
 
     @Test
-    public void testParseConditionGTETrueG(){
+    public void testParseConditionGTETrueG() {
         Day08 day = new Day08();
         String cond = "a >= 1";
         day.registers.put("a", 2);
         assertTrue(day.parseCondition(cond));
     }
-    
+
     @Test
-    public void testParseConditionLTEFalse(){
+    public void testParseConditionLTEFalse() {
         Day08 day = new Day08();
         String cond = "a <= 1";
         day.registers.put("a", 2);
         assertFalse(day.parseCondition(cond));
     }
-    
+
     @Test
-    public void testParseConditionLTETrueL(){
+    public void testParseConditionLTETrueL() {
         Day08 day = new Day08();
         String cond = "a <= 1";
         day.registers.put("a", -1);
@@ -122,38 +126,39 @@ public class Day08Test {
     }
 
     @Test
-    public void testParseConditionLTETrueE(){
+    public void testParseConditionLTETrueE() {
         Day08 day = new Day08();
         String cond = "a <= 1";
         day.registers.put("a", 1);
         assertTrue(day.parseCondition(cond));
     }
-    
+
     @Test
-    public void testParseConditionEqFalse(){
+    public void testParseConditionEqFalse() {
         Day08 day = new Day08();
         day.registers.put("a", 0);
         String cond = "a == 1";
         assertFalse(day.parseCondition(cond));
     }
-    
+
     @Test
-    public void testParseConditionEqTrue(){
+    public void testParseConditionEqTrue() {
         Day08 day = new Day08();
         day.registers.put("a", 0);
         String cond = "a == 0";
         assertTrue(day.parseCondition(cond));
     }
+
     @Test
-    public void testParseConditionNEFalse(){
+    public void testParseConditionNEFalse() {
         Day08 day = new Day08();
         day.registers.put("a", 0);
         String cond = "a != 0";
         assertFalse(day.parseCondition(cond));
     }
-    
+
     @Test
-    public void testParseConditionNETrue(){
+    public void testParseConditionNETrue() {
         Day08 day = new Day08();
         day.registers.put("a", 0);
         String cond = "a != 1";

@@ -1,9 +1,7 @@
 package com.ambertests.aoc.days;
 
-import com.ambertests.aoc.common.Coordinate;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 
@@ -20,16 +18,17 @@ public class Day12Test {
             "5 <-> 6",
             "6 <-> 4, 5"
     };
+
     @Test
-    public void testParseInput(){
+    public void testParseInput() {
         Day12 day = new Day12();
         day.parseInput(input);
         assertEquals(7, day.connections.size());
-        assertArrayEquals(new String[]{"2","3","6"},day.connections.get("4"));
+        assertArrayEquals(new String[]{"2", "3", "6"}, day.connections.get("4"));
     }
 
     @Test
-    public void testGetConnections(){
+    public void testGetConnections() {
         Day12 day = new Day12();
         day.parseInput(input);
         HashSet<String> start = new HashSet<>(Collections.singletonList("0"));
@@ -38,10 +37,10 @@ public class Day12Test {
     }
 
     @Test
-    public void testCountGroups(){
+    public void testCountGroups() {
         Day12 day = new Day12();
         day.parseInput(input);
         assertEquals(2, day.countGroups());
     }
-    
+
 }

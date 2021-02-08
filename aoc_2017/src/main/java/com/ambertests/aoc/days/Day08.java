@@ -6,77 +6,78 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class Day08 extends Day {
-    HashMap<String, Integer> registers = new HashMap<String, Integer>();
-    public Day08(){
+    HashMap<String, Integer> registers = new HashMap<>();
+
+    public Day08() {
         this.dayNum = 8;
     }
 
-    boolean parseCondition(String condition){
+    boolean parseCondition(String condition) {
         String[] cond = condition.split(" ");
         String reg = cond[0];
         String op = cond[1];
         int val = Integer.parseInt(cond[2]);
         registers.putIfAbsent(reg, 0);
         boolean isTrue = false;
-        switch(op){
-            case("<"):
+        switch (op) {
+            case ("<"):
                 isTrue = registers.get(reg) < val;
                 break;
-            case(">"):
+            case (">"):
                 isTrue = registers.get(reg) > val;
                 break;
-            case("<="):
+            case ("<="):
                 isTrue = registers.get(reg) <= val;
                 break;
-            case(">="):
+            case (">="):
                 isTrue = registers.get(reg) >= val;
                 break;
-            case("=="):
+            case ("=="):
                 isTrue = registers.get(reg) == val;
                 break;
-            case("!="):
+            case ("!="):
                 isTrue = registers.get(reg) != val;
                 break;
         }
         return isTrue;
     }
 
-    void parseMod(String modify){
+    void parseMod(String modify) {
         String[] mod = modify.split(" ");
         String reg = mod[0];
         String op = mod[1];
         int val = Integer.parseInt(mod[2]);
         registers.putIfAbsent(reg, 0);
-        if(op.equals("dec")){
+        if (op.equals("dec")) {
             registers.put(reg, registers.get(reg) - val);
-        }else{
+        } else {
             registers.put(reg, registers.get(reg) + val);
         }
     }
 
-    void parseInstruction(String instruction){
+    void parseInstruction(String instruction) {
         //a dec -511 if x >= -4
         String[] mc = instruction.split(" if ");
-        if(parseCondition(mc[1])){
+        if (parseCondition(mc[1])) {
             parseMod(mc[0]);
         }
     }
 
-    int getMaxRegister(String[] instructions){
-        for(String s:instructions){
+    int getMaxRegister(String[] instructions) {
+        for (String s : instructions) {
             parseInstruction(s);
         }
-        
+
         return Collections.max(registers.values());
     }
 
     @Override
     public void solve() {
         int totalMax = 0;
-        for(String s:getInputStringArray()){
+        for (String s : getInputStringArray()) {
             parseInstruction(s);
             int m = Collections.max(registers.values());
-            if(m > totalMax){
+            if (m > totalMax) {
                 totalMax = m;
             }
         }

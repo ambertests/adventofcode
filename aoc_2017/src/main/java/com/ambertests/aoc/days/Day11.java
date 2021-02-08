@@ -2,30 +2,31 @@ package com.ambertests.aoc.days;
 
 import com.ambertests.aoc.common.Day;
 import com.google.common.primitives.Ints;
-import java.util.Arrays;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Day11 extends Day {
-    public Day11(){
+    public Day11() {
         this.dayNum = 11;
     }
 
-    int reducePath(String[] path){
+    int reducePath(String[] path) {
         HashMap<String, Integer> dirs = new HashMap<>();
-        for(String d:new String[]{"n","s","ne","nw","se","sw"}){
+        for (String d : new String[]{"n", "s", "ne", "nw", "se", "sw"}) {
             dirs.put(d, 0);
         }
 
-        for(String p:path){
+        for (String p : path) {
             dirs.put(p, dirs.get(p) + 1);
         }
 
         //remove paired opposites
         String[][] pairs = new String[][]{
-            new String[]{"n","s"},
-            new String[]{"nw","se"},
-            new String[]{"ne","sw"},
+                new String[]{"n", "s"},
+                new String[]{"nw", "se"},
+                new String[]{"ne", "sw"},
         };
 
         Arrays.stream(pairs).forEach(pair -> {
@@ -36,12 +37,12 @@ public class Day11 extends Day {
 
         //compress combos
         String[][] combos = new String[][]{
-            new String[]{"ne", "s", "se"},
-            new String[]{"nw", "s", "sw"},
-            new String[]{"se", "n", "ne"},
-            new String[]{"sw", "n", "nw"},
-            new String[]{"se", "sw", "s"},
-            new String[]{"ne", "nw", "n"}
+                new String[]{"ne", "s", "se"},
+                new String[]{"nw", "s", "sw"},
+                new String[]{"se", "n", "ne"},
+                new String[]{"sw", "n", "nw"},
+                new String[]{"se", "sw", "s"},
+                new String[]{"ne", "nw", "n"}
         };
 
         Arrays.stream(combos).forEach(combo -> {
@@ -61,10 +62,10 @@ public class Day11 extends Day {
 
         int max = 0;
         ArrayList<String> pathList = new ArrayList<>();
-        for(String p:path){
+        for (String p : path) {
             pathList.add(p);
             int d = reducePath(pathList.toArray(new String[0]));
-            if(d > max){
+            if (d > max) {
                 max = d;
             }
         }

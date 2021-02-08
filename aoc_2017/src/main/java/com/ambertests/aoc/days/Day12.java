@@ -2,26 +2,30 @@ package com.ambertests.aoc.days;
 
 import com.ambertests.aoc.common.Day;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class Day12 extends Day {
     HashMap<String, String[]> connections = new HashMap<>();
-    public Day12(){
+
+    public Day12() {
         this.dayNum = 12;
     }
 
-    void parseInput(String[] input){
+    void parseInput(String[] input) {
         //2 <-> 0, 3, 4
-        for(String s:input){
+        for (String s : input) {
             String[] kv = s.split(" <-> ");
             String[] vals = kv[1].split(", ");
             this.connections.put(kv[0], vals);
         }
     }
 
-    HashSet<String> getConnections(String key, HashSet<String> counted){
-        for(String v:this.connections.get(key)){
-            if(!counted.contains(v)){
+    HashSet<String> getConnections(String key, HashSet<String> counted) {
+        for (String v : this.connections.get(key)) {
+            if (!counted.contains(v)) {
                 counted.add(v);
                 getConnections(v, counted);
             }
@@ -29,10 +33,10 @@ public class Day12 extends Day {
         return counted;
     }
 
-    int countGroups(){
+    int countGroups() {
         int groupCount = 0;
         ArrayList<String> keys = new ArrayList<>(this.connections.keySet());
-        while(keys.size() > 0){
+        while (keys.size() > 0) {
             String key = keys.get(0);
             HashSet<String> start = new HashSet<>(Collections.singletonList(key));
             HashSet<String> connections = getConnections(key, start);
