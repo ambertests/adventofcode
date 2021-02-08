@@ -108,9 +108,9 @@ public class Day10 extends Day {
         return sb.toString();
     }
 
-    String calculateHash(String lenStr){
+    public String knotHash(String str){
         int[] arr = initializeArray();
-        int[] lengths = getLengths(lenStr);
+        int[] lengths = getLengths(str);
         int[] processed = processArray(arr, lengths, 64);
         return createHash(processed);
     }
@@ -123,7 +123,7 @@ public class Day10 extends Day {
         this.solution1 = processed[0] * processed[1];
 
         String lenStr = "31,2,85,1,80,109,35,63,98,255,0,13,105,254,128,33";
-        this.solution2 = calculateHash(lenStr);
+        this.solution2 = knotHash(lenStr);
     }
 
     public static void main(String[] args) {

@@ -79,31 +79,31 @@ public class Day10Test {
     }
 
     @Test
-    public void testCalculateHash1(){
+    public void testKnotHash1(){
         Day10 day = new Day10();
-        String lenStr = "";
+        String str = "";
         String expected = "a2582a3a0e66e6e86e3812dcb672a272";
-        assertEquals(expected, day.calculateHash(lenStr));
+        assertEquals(expected, day.knotHash(str));
     }
     @Test
-    public void testCalculateHash2(){
+    public void testKnotHash2(){
         Day10 day = new Day10();
-        String lenStr = "AoC 2017";
+        String str = "AoC 2017";
         String expected = "33efeb34ea91902bb2f59c9920caa6cd";
-        assertEquals(expected, day.calculateHash(lenStr));
+        assertEquals(expected, day.knotHash(str));
     }
     @Test
-    public void testCalculateHash3(){
+    public void testKnotHash3(){
         Day10 day = new Day10();
-        String lenStr = "1,2,3";
+        String str = "1,2,3";
         String expected = "3efbe78a8d82f29979031a4aa0b16a9d";
-        assertEquals(expected, day.calculateHash(lenStr));
+        assertEquals(expected, day.knotHash(str));
     }
     @Test
-    public void testCalculateHash4(){
+    public void testKnotHash4(){
         Day10 day = new Day10();
-        String lenStr = "1,2,4";
+        String str = "1,2,4";
         String expected = "63960835bcdc130f0b66d7ff4f6a5a8e";
-        assertEquals(expected, day.calculateHash(lenStr));
+        assertEquals(expected, day.knotHash(str));
     }
 }
