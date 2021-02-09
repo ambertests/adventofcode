@@ -42,5 +42,9 @@ public abstract class Day {
         return Arrays.stream(getInputStringArray()).mapToInt(Integer::parseInt).toArray();
     }
 
+    protected char[][] getInputGrid(){
+        return Arrays.stream(getInputStringArray()).map(String::toCharArray).toArray(char[][]::new);
+    }
+
     public abstract void solve();
 }
