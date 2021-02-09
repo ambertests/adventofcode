@@ -21,7 +21,7 @@ public class Day18Test {
                 "set a 1",
                 "jgz a -2"
         };
-        Program p = new Program(0, instructions, true);
+        Program p = new Program(instructions);
         long val = 0;
         p.run();
         while (p.hasSendItem()) {
@@ -41,8 +41,8 @@ public class Day18Test {
                 "rcv c",
                 "rcv d"
         };
-        Program p0 = new Program(0, instructions, false);
-        Program p1 = new Program(1, instructions, false);
+        Program p0 = new Program(0, instructions);
+        Program p1 = new Program(1, instructions);
         int p1Sends = 0;
         while (p0.canRun() && p1.canRun()) {
             p0.run();

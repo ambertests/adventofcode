@@ -19,7 +19,15 @@ public class Day18 extends Day {
         private boolean waiting;
         private boolean terminated;
 
-        public Program(long id, String[] instructions, boolean soloMode) {
+        public Program(String[] instructions) {
+            this(0, instructions, true);
+        }
+
+        public Program(long id, String[] instructions) {
+            this(id, instructions, false);
+        }
+
+        private Program(long id, String[] instructions, boolean soloMode) {
             this.instructions = instructions;
             this.registers = new HashMap<>();
             this.registers.put("p", id);
@@ -127,15 +135,15 @@ public class Day18 extends Day {
         String[] instructions = getInputStringArray();
 
         //part 1
-        Program p = new Program(0, instructions, true);
+        Program p = new Program(instructions);
         p.run();
         while (p.hasSendItem()) {
             this.solution1 = p.getNextSend();
         }
 
         //part 2
-        Program p0 = new Program(0, instructions, false);
-        Program p1 = new Program(1, instructions, false);
+        Program p0 = new Program(0, instructions);
+        Program p1 = new Program(1, instructions);
         int p1Sends = 0;
         while (p0.canRun() || p1.canRun()) {
             p0.run();
