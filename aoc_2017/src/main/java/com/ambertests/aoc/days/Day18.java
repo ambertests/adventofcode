@@ -9,16 +9,16 @@ public class Day18 extends Day {
         this.dayNum = 18;
     }
 
-    int runProgram(String[] instructions){
-        int lastSound = 0;
-        HashMap<String, Integer> registers = new HashMap<>();
+    long runProgram(String[] instructions){
+        long lastSound = 0;
+        HashMap<String, Long> registers = new HashMap<>();
         int index = 0;
         while(index < instructions.length){
             String[] inst = instructions[index].split(" ");
             String cmd = inst[0];
             String reg = inst[1];
-            int val = inst.length == 3 ? getValue(inst[2], registers) : 0;
-            registers.putIfAbsent(reg, 0);
+            long val = inst.length == 3 ? getValue(inst[2], registers) : 0;
+            registers.putIfAbsent(reg, 0L);
             switch(cmd){
                 case("snd"):
                     lastSound = registers.get(reg);
@@ -41,7 +41,7 @@ public class Day18 extends Day {
                     index += 1;
                     break;
                 case("rcv"):
-                    if(registers.get(reg) > 0){
+                    if(registers.get(reg) != 0){
                         //break the loop
                         index = instructions.length;
                     }else{
@@ -61,11 +61,11 @@ public class Day18 extends Day {
         return lastSound;
     }
 
-    int getValue(String x, HashMap<String, Integer> registers){
+    long getValue(String x, HashMap<String, Long> registers){
         if(Character.isLetter(x.charAt(0))){
-            return registers.getOrDefault(x, 0);
+            return registers.getOrDefault(x, 0L);
         }else{
-            return Integer.parseInt(x);
+            return Long.parseLong(x);
         }
     }
 
