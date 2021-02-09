@@ -7,6 +7,10 @@ import java.util.HashMap;
 
 public class Day13 extends Day {
 
+    public Day13() {
+        this.dayNum = 13;
+    }
+
     int getScore(HashMap<Integer, Integer> firewall, int delay, boolean stopOnCaught) {
         boolean caught = false;
         int score = 0;
