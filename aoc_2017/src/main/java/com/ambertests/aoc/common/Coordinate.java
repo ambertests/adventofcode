@@ -9,6 +9,10 @@ public class Coordinate {
         this.y = y;
     }
 
+    public Coordinate clone(){
+        return new Coordinate(this.x, this.y);
+    }
+
     @Override
     public boolean equals(Object o) {
         boolean eq = false;
