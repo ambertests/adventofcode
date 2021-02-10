@@ -3,6 +3,7 @@ package com.ambertests.aoc.days;
 import com.ambertests.aoc.common.Day;
 
 import java.util.*;
+import java.math.BigInteger;
 
 public class Day23 extends Day{
     public Day23(){
@@ -56,9 +57,28 @@ public class Day23 extends Day{
         }
         return a == 0 ? muls : registers.get("h");
     }
+    
+    /*
+    I honestly hate these assembly breakdown puzzles, so I cribbed the solution from
+    https://www.reddit.com/r/adventofcode/comments/7lms6p/2017_day_23_solutions/drnqd7g,
+    substituting in 67 from my input. Worked like magic...
+    */
+    long calculate2() {
+        int counter = 0;
+        final int original = 67 * 100 + 100000;
+    
+        for (int n = 0; n <= 1000; ++n) {
+            int number = original + 17 * n;
+            if (!BigInteger.valueOf(number).isProbablePrime(100000)) counter++;
+        }
+        
+        return counter;
+    }
+
     @Override
     public void solve() {
         this.solution1 = run(getInputStringArray(), 0L);
+        this.solution2 = calculate2();
         //this.solution2 = run(getInputStringArray(), 1L);
     }
     public static void main(String[] args) {
