@@ -79,26 +79,25 @@ public class Day22 extends Day {
     }
 
     int evolvedInfect (Coordinate virus, HashSet<Coordinate> infected, int bursts){
-        HashSet<Coordinate> weakened = new HashSet<>();
-        HashSet<Coordinate> flagged = new HashSet<>();
+        HashMap<Coordinate, Character> states = new HashMap<Coordinate, Character>();
+        infected.forEach(i -> states.put(i.clone(), 'i'));
         int causedInfection = 0;
         char direction = 'n';
         for(int i = 0; i < bursts; i++){
-            if(infected.contains(virus)){
+            char state = states.getOrDefault(virus, 'c');
+            if(state == 'i'){
                 direction = turnRight(direction);
-                infected.remove(virus);
-                flagged.add(virus.clone());
+                states.put(virus, 'f');
             }else{
-                if(weakened.contains(virus)){
-                    weakened.remove(virus);
-                    infected.add(virus.clone());
+                if(state == 'w'){
+                    states.put(virus, 'i');
                     causedInfection += 1;
                 }else{
-                    if(flagged.contains(virus)){
-                        flagged.remove(virus);
+                    if(state == 'f'){
+                        states.remove(virus);
                         direction = reverse(direction);
                     }else{
-                        weakened.add(virus.clone());
+                        states.put(virus, 'w');
                         direction = turnLeft(direction);
                     }
                 }

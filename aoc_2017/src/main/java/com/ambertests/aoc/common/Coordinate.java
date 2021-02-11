@@ -30,7 +30,11 @@ public class Coordinate {
 
     @Override
     public int hashCode() {
-        return this.toString().hashCode();
+        // Szudzik pairing fuction which supports negative numbers
+        // https://gist.github.com/TheGreatRambler/048f4b38ca561e6566e0e0f6e71b7739
+        int xx = x >= 0 ? x * 2 : x * -2 - 1;
+        int yy = y >= 0 ? y * 2 : y * -2 - 1;
+        return (xx >= yy) ? (xx * xx + xx + yy) : (yy * yy + xx);
     }
 
 }
