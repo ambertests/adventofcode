@@ -1,13 +1,13 @@
 package com.ambertests.aoc.days;
 
+import com.ambertests.aoc.common.Coordinate;
 import com.ambertests.aoc.common.Day;
 
 import java.util.*;
-import java.util.function.Predicate;
 
 public class Day24 extends Day {
-    HashMap<String, Set<String>> prongsToPipes;
-    HashSet<String> allBridges = new HashSet<>();
+    HashMap<Integer, Set<Coordinate>> prongsToPipes;
+    HashSet<List<Coordinate>> allBridges = new HashSet<>();
 
     public Day24() {
         this.dayNum = 24;
@@ -15,52 +15,50 @@ public class Day24 extends Day {
 
     void parseInput(String[] input) {
         prongsToPipes = new HashMap<>();
-        Arrays.stream(input)
-                .forEach(p -> Arrays.stream(p.split("/"))
-                        .forEach(s -> {
-                            prongsToPipes.putIfAbsent(s, new HashSet<>());
-                            prongsToPipes.get(s).add(p);
-                        }));
+        Arrays.stream(input).forEach(p -> {
+            String[] sides = p.split("/");
+            Coordinate c = new Coordinate(Integer.parseInt(sides[0]), Integer.parseInt(sides[1]));
+            prongsToPipes.putIfAbsent(c.x, new HashSet<>());
+            prongsToPipes.putIfAbsent(c.y, new HashSet<>());
+            prongsToPipes.get(c.x).add(c);
+            prongsToPipes.get(c.y).add(c);
+        });
     }
 
-    int strength(String bridge) {
-        return Arrays.stream(bridge.split("#"))
-                .filter(Predicate.not(String::isEmpty))
-                .flatMapToInt(p -> Arrays.stream(p.split("/"))
-                        .mapToInt(Integer::parseInt)).sum();
-    }
-
-    int length(String bridge) {
-        return Arrays.stream(bridge.split("#"))
-                .filter(Predicate.not(String::isEmpty)).toArray().length;
+    int strength(List<Coordinate> bridge) {
+        return bridge.stream().mapToInt(c -> c.x + c.y).sum();
     }
 
     int maxStrength = 0;
     int maxLength = 0;
 
-    void buildBridges(String prongs, String bridge, ArrayList<String> used) {
-        for (String pipe : prongsToPipes.getOrDefault(prongs, new HashSet<>())) {
+    void buildBridges(Integer prongs, List<Coordinate> bridge, ArrayList<Coordinate> used) {
+        for (Coordinate pipe : prongsToPipes.getOrDefault(prongs, new HashSet<>())) {
             if (!used.contains(pipe)) {
-                String newBridge = bridge + "#" + pipe;
-                allBridges.add(newBridge);
-                ArrayList<String> newUsed = new ArrayList<>(used);
+                ArrayList<Coordinate> newBridge = new ArrayList<>(bridge);
+                newBridge.add(pipe);
+                if (newBridge.size() >= maxLength) {
+                    allBridges.add(newBridge);
+                }
+
+                ArrayList<Coordinate> newUsed = new ArrayList<>(used);
                 newUsed.add(pipe);
-                String[] sides = pipe.split("/");
-                String newProngs = sides[0].equals(prongs) ? sides[1] : sides[0];
+
+                Integer newProngs = pipe.x == prongs ? pipe.y : pipe.x;
                 buildBridges(newProngs, newBridge, new ArrayList<>(newUsed));
             }
         }
         maxStrength = Math.max(maxStrength, strength(bridge));
-        maxLength = Math.max(maxLength, length(bridge));
+        maxLength = Math.max(maxLength, bridge.size());
     }
 
     @Override
     public void solve() {
         parseInput(getInputStringArray());
-        buildBridges("0", "", new ArrayList<>());
+        buildBridges(0, new ArrayList<>(), new ArrayList<>());
         this.solution1 = maxStrength;
-        this.solution2 = allBridges.stream().filter(b -> length(b) == maxLength)
-                .map(this::strength).max(Integer::compareTo).orElse(0);
+        this.solution2 = allBridges.stream().filter(b -> b.size() == maxLength)
+                .mapToInt(this::strength).max().orElse(0);
     }
 
     public static void main(String[] args) {
@@ -68,6 +66,5 @@ public class Day24 extends Day {
         day.solve();
         day.printSolutions();
     }
-
 
 }
