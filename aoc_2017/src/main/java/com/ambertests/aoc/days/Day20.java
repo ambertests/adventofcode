@@ -46,15 +46,12 @@ public class Day20 extends Day {
         toRemove.forEach(particles::remove);
     }
 
-
-    @Override
-    public void solve() {
-        String[] particles = getInputStringArray();
-        ArrayList<int[]> pList = new ArrayList<>();
+    int slowestParticle = -1;
+    ArrayList<int[]> particleList(String[] particles){
+        ArrayList<int[]> particleList = new ArrayList<>();
         Pattern p = Pattern.compile("-?\\d+");
 
         int minAcc = Integer.MAX_VALUE;
-        int slowest = -1;
         for (int i = 0; i < particles.length; i++) {
             int[] particle = p.matcher(particles[i]).results()
                     .map(MatchResult::group)
@@ -63,17 +60,23 @@ public class Day20 extends Day {
             int acc = Math.abs(particle[6]) + Math.abs(particle[7]) + Math.abs(particle[8]);
             if (acc < minAcc) {
                 minAcc = acc;
-                slowest = i;
+                slowestParticle = i;
             }
-            pList.add(particle);
+            particleList.add(particle);
         }
-        this.solution1 = slowest;
+        return particleList;
+    }
+
+    @Override
+    public void solve() {
+        ArrayList<int[]> particles = particleList(getInputStringArray());
+        this.solution1 = this.slowestParticle;
 
         for (int i = 0; i < 40; i++) {
-            update(pList);
-            removeCollisions(pList);
+            update(particles);
+            removeCollisions(particles);
         }
-        this.solution2 = pList.size();
+        this.solution2 = particles.size();
     }
 
     public static void main(String[] args) {

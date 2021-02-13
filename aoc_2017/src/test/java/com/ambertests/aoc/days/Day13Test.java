@@ -39,4 +39,18 @@ public class Day13Test {
         assertEquals(10, day.findDelay(firewall));
     }
 
+    @Test
+    public void solvesPart1() {
+        Day13 day = new Day13();
+        HashMap<Integer, Integer> firewall = day.parseInput(day.getInputStringArray());
+        assertEquals(1704, day.getScore(firewall, 0, false));
+    }
+
+    @Test
+    public void solvesPart2() {
+        Day13 day = new Day13();
+        HashMap<Integer, Integer> firewall = day.parseInput(day.getInputStringArray());
+        assertEquals(3970918, day.findDelay(firewall));
+    }
+
 }

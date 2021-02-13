@@ -1,5 +1,6 @@
 package com.ambertests.aoc.days;
 
+import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -42,6 +43,24 @@ public class Day24Test {
         day.parseInput(input);
         day.buildBridges(0, new ArrayList<>(), new ArrayList<>());
         assertEquals(31, day.maxStrength);
+    }
+
+    static Day24 day = new Day24();
+
+    @BeforeClass
+    public static void beforeClass() {
+        day.parseInput(day.getInputStringArray());
+        day.buildBridges(0, new ArrayList<>(), new ArrayList<>());
+    }
+
+    @Test
+    public void solvesPart1() {
+        assertEquals(2006, day.maxStrength);
+    }
+
+    @Test
+    public void solvesPart2() {
+        assertEquals(1994, day.getMaxStrengthForSize());
     }
 
 }

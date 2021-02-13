@@ -58,4 +58,16 @@ public class Day18Test {
         assertEquals(3, p1Sends);
     }
 
+    @Test
+    public void solvesPart1() {
+        Day18 day = new Day18();
+        assertEquals(2951, day.part1(day.getInputStringArray()));
+    }
+
+    @Test
+    public void solvesPart2() {
+        Day18 day = new Day18();
+        assertEquals(7366, day.part2(day.getInputStringArray()));
+    }
+
 }

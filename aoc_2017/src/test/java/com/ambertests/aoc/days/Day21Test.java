@@ -1,4 +1,5 @@
 package com.ambertests.aoc.days;
+
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -13,7 +14,7 @@ public class Day21Test {
     };
 
     @Test
-    public void testFlip(){
+    public void testFlip() {
         char[][] expected = new char[][]{
                 ".#.".toCharArray(),
                 "#..".toCharArray(),
@@ -24,7 +25,7 @@ public class Day21Test {
     }
 
     @Test
-    public void testRotate(){
+    public void testRotate() {
         char[][] expected = new char[][]{
                 ".##".toCharArray(),
                 "#.#".toCharArray(),
@@ -35,63 +36,63 @@ public class Day21Test {
     }
 
     @Test
-    public void testGridToRule(){
+    public void testGridToRule() {
         String expected = ".#./..#/###";
         Day21 day = new Day21();
         assertEquals(expected, day.gridToRule(grid));
     }
 
     @Test
-    public void testMatchesRule(){
+    public void testMatchesRule() {
         String rule = ".#./..#/###";
         Day21 day = new Day21();
         assertTrue(day.matchesRule(rule, grid));
     }
 
     @Test
-    public void testMatchesRuleFlipped(){
+    public void testMatchesRuleFlipped() {
         String rule = ".#./..#/###";
         Day21 day = new Day21();
         assertTrue(day.matchesRule(rule, day.flip(grid)));
     }
 
     @Test
-    public void testMatchesRuleRotated(){
+    public void testMatchesRuleRotated() {
         String rule = ".#./..#/###";
         Day21 day = new Day21();
         assertTrue(day.matchesRule(rule, day.rotate(day.rotate(grid))));
     }
 
     @Test
-    public void testMatchesRuleRotatedFlipped(){
+    public void testMatchesRuleRotatedFlipped() {
         String rule = ".#./..#/###";
         Day21 day = new Day21();
         assertTrue(day.matchesRule(rule, day.rotate(day.flip(day.rotate(day.rotate(grid))))));
     }
 
     @Test
-    public void testMatchesRule_DiffHashCount(){
+    public void testMatchesRule_DiffHashCount() {
         String rule = ".#./..#/#.#";
         Day21 day = new Day21();
         assertFalse(day.matchesRule(rule, grid));
     }
 
     @Test
-    public void testMatchesRule_Mismatch(){
+    public void testMatchesRule_Mismatch() {
         String rule = ".#./.#./###";
         Day21 day = new Day21();
         assertFalse(day.matchesRule(rule, grid));
     }
 
     @Test
-    public void testMatchesRule_WrongSize(){
+    public void testMatchesRule_WrongSize() {
         String rule = ".#/##";
         Day21 day = new Day21();
         assertFalse(day.matchesRule(rule, grid));
     }
 
     @Test
-    public void testApplyRules(){
+    public void testApplyRules() {
         HashMap<String, String> ruleBook = new HashMap<>();
         ruleBook.put("../.#", "##./#../...");
         ruleBook.put(".#./..#/###", "#..#/..../..../#..#");
@@ -101,7 +102,7 @@ public class Day21Test {
     }
 
     @Test
-    public void testApplyRulesWithSplit(){
+    public void testApplyRulesWithSplit() {
         HashMap<String, String> ruleBook = new HashMap<>();
         ruleBook.put("../.#", "##./#../...");
         ruleBook.put(".#./..#/###", "#..#/..../..../#..#");
@@ -111,5 +112,19 @@ public class Day21Test {
         assertEquals(6, updated.length);
         assertEquals(12, day.countHashes(updated));
 
+    }
+
+    @Test
+    public void solvesPart1() {
+        Day21 day = new Day21();
+        HashMap<String, String> rules = day.createRuleBook(day.getInputStringArray());
+        assertEquals(150, day.transformGrid(day.startingGrid.clone(), rules, 5));
+    }
+
+    @Test
+    public void solvesPart2() {
+        Day21 day = new Day21();
+        HashMap<String, String> rules = day.createRuleBook(day.getInputStringArray());
+        assertEquals(2606275, day.transformGrid(day.startingGrid.clone(), rules, 18));
     }
 }

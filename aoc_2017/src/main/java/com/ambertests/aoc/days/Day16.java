@@ -81,19 +81,22 @@ public class Day16 extends Day {
         return rounds;
     }
 
-    @Override
-    public void solve() {
-        String dancers = "abcdefghijklmnop";
-        ArrayList<int[]> steps = parseSteps(getInputString().split(","));
-        this.solution1 = new String(dance(dancers.toCharArray(), steps));
-
+    String repeatDance(String dancers, ArrayList<int[]> steps, int count){
         int cycle = findCycle(dancers, steps);
         int rounds = 1000000000%cycle;
         char[] d = dancers.toCharArray();
         for(int i = 0; i < rounds; i++){
             d = dance(d, steps);
         }
-        this.solution2 = new String(d);
+        return new String(d);
+    }
+
+    @Override
+    public void solve() {
+        String dancers = "abcdefghijklmnop";
+        ArrayList<int[]> steps = parseSteps(getInputString().split(","));
+        this.solution1 = new String(dance(dancers.toCharArray(), steps));
+        this.solution2 = repeatDance(dancers, steps, 1000000000);
 
     }
 

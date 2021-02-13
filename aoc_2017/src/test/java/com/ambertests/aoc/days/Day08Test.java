@@ -164,4 +164,18 @@ public class Day08Test {
         String cond = "a != 1";
         assertTrue(day.parseCondition(cond));
     }
+
+    @Test
+    public void solvesPart1() {
+        Day08 day = new Day08();
+        day.solve();
+        assertEquals(5221, day.solution1);
+    }
+
+    @Test
+    public void solvesPart2() {
+        Day08 day = new Day08();
+        day.solve();
+        assertEquals(7491, day.solution2);
+    }
 }

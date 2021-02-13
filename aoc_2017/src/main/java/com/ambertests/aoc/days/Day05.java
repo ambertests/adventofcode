@@ -7,7 +7,7 @@ public class Day05 extends Day {
         this.dayNum = 5;
     }
 
-    private int escapeArray(int[] arr, int part) {
+    int escapeArray(int[] arr, int part) {
         int index = 0;
         int moves = 0;
         while (index < arr.length) {

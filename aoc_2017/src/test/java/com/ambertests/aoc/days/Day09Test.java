@@ -169,4 +169,18 @@ public class Day09Test {
         assertEquals(3, day.scoreString(test));
     }
 
+    @Test
+    public void solvesPart1() {
+        Day09 day = new Day09();
+        day.solve();
+        assertEquals(14204, day.solution1);
+    }
+
+    @Test
+    public void solvesPart2() {
+        Day09 day = new Day09();
+        day.solve();
+        assertEquals(6622, day.solution2);
+    }
+
 }

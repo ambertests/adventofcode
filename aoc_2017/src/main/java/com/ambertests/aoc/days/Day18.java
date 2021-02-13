@@ -130,18 +130,17 @@ public class Day18 extends Day {
         this.dayNum = 18;
     }
 
-    @Override
-    public void solve() {
-        String[] instructions = getInputStringArray();
-
-        //part 1
+    long part1(String[] instructions){
+        long lastSent = 0;
         Program p = new Program(instructions);
         p.run();
         while (p.hasSendItem()) {
-            this.solution1 = p.getNextSend();
+            lastSent = p.getNextSend();
         }
+        return lastSent;
+    }
 
-        //part 2
+    int part2(String[] instructions){
         Program p0 = new Program(0, instructions);
         Program p1 = new Program(1, instructions);
         int p1Sends = 0;
@@ -156,7 +155,14 @@ public class Day18 extends Day {
                 p1Sends += 1;
             }
         }
-        this.solution2 = p1Sends;
+        return p1Sends;
+    }
+
+    @Override
+    public void solve() {
+        String[] instructions = getInputStringArray();
+        this.solution1 = part1(instructions);
+        this.solution2 = part2(instructions);
     }
 
     public static void main(String[] args) {

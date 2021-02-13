@@ -55,21 +55,22 @@ public class Day11 extends Day {
         return Arrays.stream(Ints.toArray(dirs.values())).sum();
     }
 
-    @Override
-    public void solve() {
-        String[] path = getInputString().split(",");
-        this.solution1 = reducePath(path);
-
+    int getMaxPath(String[] path){
         int max = 0;
         ArrayList<String> pathList = new ArrayList<>();
         for (String p : path) {
             pathList.add(p);
             int d = reducePath(pathList.toArray(new String[0]));
-            if (d > max) {
-                max = d;
-            }
+            max = Math.max(max, d);
         }
-        this.solution2 = max;
+        return max;
+    }
+
+    @Override
+    public void solve() {
+        String[] path = getInputString().split(",");
+        this.solution1 = reducePath(path);
+        this.solution2 = getMaxPath(path);
     }
 
     public static void main(String[] args) {

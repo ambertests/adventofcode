@@ -63,4 +63,18 @@ public class Day07Test {
 
     }
 
+    @Test
+    public void solvesPart1() {
+        Day07 day = new Day07();
+        day.parseInput(day.getInputStringArray());
+        assertEquals("airlri", day.getBottom());
+    }
+
+    @Test
+    public void solvesPart2() {
+        Day07 day = new Day07();
+        day.parseInput(day.getInputStringArray());
+        assertEquals(1206, day.findBadWeight());
+    }
+
 }

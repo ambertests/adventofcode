@@ -115,4 +115,20 @@ public class Day10Test {
         String expected = "63960835bcdc130f0b66d7ff4f6a5a8e";
         assertEquals(expected, day.knotHash(str));
     }
+
+    @Test
+    public void solvesPart1() {
+        Day10 day = new Day10();
+        int[] arr = day.initializeArray();
+        int[] lengths = new int[]{31, 2, 85, 1, 80, 109, 35, 63, 98, 255, 0, 13, 105, 254, 128, 33};
+        int[] processed = day.processArray(arr, lengths, 1);
+        assertEquals(6952, processed[0] * processed[1]);
+    }
+
+    @Test
+    public void solvesPart2() {
+        Day10 day = new Day10();
+        String lenStr = "31,2,85,1,80,109,35,63,98,255,0,13,105,254,128,33";
+        assertEquals("28e7c4360520718a5dc811d3942cf1fd", day.knotHash(lenStr));
+    }
 }

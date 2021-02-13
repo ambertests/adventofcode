@@ -52,13 +52,17 @@ public class Day24 extends Day {
         maxLength = Math.max(maxLength, bridge.size());
     }
 
+    int getMaxStrengthForSize(){
+        return allBridges.stream().filter(b -> b.size() == maxLength)
+                .mapToInt(this::strength).max().orElse(0);
+    }
+
     @Override
     public void solve() {
         parseInput(getInputStringArray());
         buildBridges(0, new ArrayList<>(), new ArrayList<>());
         this.solution1 = maxStrength;
-        this.solution2 = allBridges.stream().filter(b -> b.size() == maxLength)
-                .mapToInt(this::strength).max().orElse(0);
+        this.solution2 = getMaxStrengthForSize();
     }
 
     public static void main(String[] args) {

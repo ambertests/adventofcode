@@ -16,5 +16,12 @@ public class Day25Test {
         assertEquals(3, T.getOnesCount());
     }
 
+    @Test
+    public void solvesPart1() {
+        Day25 day = new Day25();
+        day.solve();
+        assertEquals(3145, day.solution1);
+    }
+
 
 }

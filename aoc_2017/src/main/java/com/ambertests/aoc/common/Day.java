@@ -12,8 +12,8 @@ public abstract class Day {
     private static final String DEFAULT_DELIMITER = System.lineSeparator();
 
     protected Integer dayNum = 0;
-    protected Object solution1 = "";
-    protected Object solution2 = "";
+    public Object solution1 = "";
+    public Object solution2 = "";
 
     public void printSolutions() {
         System.out.printf("Solution %d.1: %s%n", dayNum, solution1.toString());
@@ -29,20 +29,20 @@ public abstract class Day {
         }
     }
 
-    protected String getInputString() {
+    public String getInputString() {
         return getResourceAsString(String.format("day%02d.txt", dayNum));
     }
 
 
-    protected String[] getInputStringArray() {
+    public String[] getInputStringArray() {
         return Arrays.stream(getInputString().split(DEFAULT_DELIMITER)).toArray(String[]::new);
     }
 
-    protected int[] getInputInts() {
+    public int[] getInputInts() {
         return Arrays.stream(getInputStringArray()).mapToInt(Integer::parseInt).toArray();
     }
 
-    protected char[][] getInputGrid(){
+    public char[][] getInputGrid(){
         return Arrays.stream(getInputStringArray()).map(String::toCharArray).toArray(char[][]::new);
     }
 

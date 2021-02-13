@@ -21,4 +21,17 @@ public class Day14Test {
         assertEquals(1242, day.getRegionCount(active));
     }
 
+    @Test
+    public void solvePart1() {
+        Day14 day = new Day14();
+        assertEquals(8250, day.getActiveSquares("stpzcrnm").size());
+    }
+
+    @Test
+    public void solvePart2() {
+        Day14 day = new Day14();
+        ArrayList<Coordinate> active = day.getActiveSquares("stpzcrnm");
+        assertEquals(1113, day.getRegionCount(active));
+    }
+
 }

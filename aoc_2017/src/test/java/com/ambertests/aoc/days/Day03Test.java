@@ -38,4 +38,16 @@ public class Day03Test {
         Day03 day3 = new Day03();
         assertEquals(31, day3.getDistance(1024));
     }
+
+    @Test
+    public void solvesPart1() {
+        Day03 day3 = new Day03();
+        assertEquals(552, day3.getDistance(325489));
+    }
+
+    @Test
+    public void solvesPart2() {
+        Day03 day3 = new Day03();
+        assertEquals(330785, day3.createGrid(325489));
+    }
 }

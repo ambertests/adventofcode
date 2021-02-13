@@ -129,28 +129,32 @@ public class Day21 extends Day {
         return newGrid;
     }
 
-    @Override
-    public void solve() {
-        char[][] grid = new char[][]{
-                ".#.".toCharArray(),
-                "..#".toCharArray(),
-                "###".toCharArray()
-        };
+    HashMap<String, String> createRuleBook(String[] input){
         HashMap<String, String> ruleBook = new HashMap<>();
-        for (String s : getInputStringArray()) {
+        for (String s : input) {
             String[] kv = s.split(" => ");
             ruleBook.put(kv[0], kv[1]);
         }
-        for (int i = 0; i < 5; i++) {
-            grid = applyRules(grid, ruleBook);
-        }
-        this.solution1 = countHashes(grid);
+        return ruleBook;
+    }
 
-        //do total of 18 updates for part 2
-        for (int i = 0; i < 13; i++) {
+    long transformGrid(char[][] grid, HashMap<String, String> ruleBook, int count){
+        for (int i = 0; i < count; i++) {
             grid = applyRules(grid, ruleBook);
         }
-        this.solution2 = countHashes(grid);
+        return countHashes(grid);
+    }
+
+    char[][] startingGrid =  new char[][]{
+            ".#.".toCharArray(),
+            "..#".toCharArray(),
+            "###".toCharArray()};
+
+    @Override
+    public void solve() {
+        HashMap<String, String> ruleBook = createRuleBook(getInputStringArray());
+        this.solution1 = transformGrid(startingGrid.clone(), ruleBook, 5);
+        this.solution2 = transformGrid(startingGrid.clone(), ruleBook, 18);
     }
 
     public static void main(String[] args) {

@@ -33,4 +33,18 @@ public class Day11Test {
         assertEquals(3, day.reducePath(path));
     }
 
+    @Test
+    public void solvesPart1() {
+        Day11 day = new Day11();
+        String[] path = day.getInputString().split(",");
+        assertEquals(747, day.reducePath(path));
+    }
+
+    @Test
+    public void solvesPart2() {
+        Day11 day = new Day11();
+        String[] path = day.getInputString().split(",");
+        assertEquals(1544, day.getMaxPath(path));
+    }
+
 }

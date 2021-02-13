@@ -2,6 +2,8 @@ package com.ambertests.aoc.days;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
@@ -28,6 +30,23 @@ public class Day06Test {
         Day06 day = new Day06();
         day.findLoop(arr);
         assertEquals(4, day.findLoop(arr));
+    }
+
+    @Test
+    public void solvesPart1() {
+        Day06 day = new Day06();
+        int[] nums = Arrays.stream(day.getInputString().split("\t"))
+                .mapToInt(Integer::parseInt).toArray();
+        assertEquals(4074, day.findLoop(nums));
+    }
+
+    @Test
+    public void solvesPart2() {
+        Day06 day = new Day06();
+        int[] nums = Arrays.stream(day.getInputString().split("\t"))
+                .mapToInt(Integer::parseInt).toArray();
+        day.findLoop(nums);
+        assertEquals(2793, day.findLoop(nums));
     }
 
 }

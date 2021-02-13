@@ -43,4 +43,20 @@ public class Day12Test {
         assertEquals(2, day.countGroups());
     }
 
+    @Test
+    public void solvesPart1() {
+        Day12 day = new Day12();
+        day.parseInput(day.getInputStringArray());
+        HashSet<String> start = new HashSet<>(Collections.singletonList("0"));
+        HashSet<String> connections = day.getConnections("0", start);
+        assertEquals(239, connections.size());
+    }
+
+    @Test
+    public void solvesPart2() {
+        Day12 day = new Day12();
+        day.parseInput(day.getInputStringArray());
+        assertEquals(215, day.countGroups());
+    }
+
 }
